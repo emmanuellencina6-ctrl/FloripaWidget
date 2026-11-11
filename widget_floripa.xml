@@ -1,0 +1,79 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/beach_bg"
+    android:padding="12dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="#66304450"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LA CUENTA REGRESIVA EMPEZÓ"
+            android:textColor="#F5FFFF"
+            android:textSize="9sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.22"
+            android:shadowColor="#99002E3A"
+            android:shadowRadius="5"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FLORIPA"
+            android:textColor="#FFFFFF"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.08"
+            android:shadowColor="#CC003746"
+            android:shadowRadius="8"
+            android:shadowDy="3"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sol, playa y momentos que ya estamos esperando 🌴"
+            android:textColor="#FFFFFF"
+            android:textSize="10sp"
+            android:gravity="center"
+            android:layout_marginBottom="9dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <include layout="@layout/unit_days"/>
+            <include layout="@layout/unit_hours"/>
+            <include layout="@layout/unit_minutes"/>
+            <include layout="@layout/unit_seconds"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="23 DE ENERO DE 2027"
+            android:textColor="#FFFFFF"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.12"
+            android:layout_marginTop="9dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PRÓXIMA PARADA: FLORIANÓPOLIS 🇧🇷"
+            android:textColor="#F4FFFF"
+            android:textSize="8sp"
+            android:letterSpacing="0.08"
+            android:layout_marginTop="5dp"/>
+    </LinearLayout>
+</RelativeLayout>
