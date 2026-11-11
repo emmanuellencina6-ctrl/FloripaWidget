@@ -1,0 +1,78 @@
+
+name: Build FLORIPA Android widget
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: android-actions/setup-android@v3
+
+      - name: Prepare Android project
+        run: |
+          mkdir -p app/src/main/java/com/floripa/widget
+          mkdir -p app/src/main/res/layout
+          mkdir -p app/src/main/res/drawable
+          mkdir -p app/src/main/res/xml
+          mkdir -p app/src/main/res/values
+
+          mv AndroidManifest.xml app/src/main/
+          mv FloripaWidgetProvider.kt app/src/main/java/com/floripa/widget/
+          mv MainActivity.kt app/src/main/java/com/floripa/widget/
+          mv beach_bg.jpg app/src/main/res/drawable/
+          mv activity_main.xml app/src/main/res/layout/
+          mv widget_floripa.xml app/src/main/res/layout/
+          mv unit_*.xml app/src/main/res/layout/
+          mv floripa_widget_info.xml app/src/main/res/xml/
+          mv strings.xml app/src/main/res/values/
+          mv styles.xml app/src/main/res/values/
+
+          cat > app/build.gradle <<'EOF'
+          plugins {
+              id 'com.android.application'
+              id 'org.jetbrains.kotlin.android'
+          }
+          android {
+              namespace 'com.floripa.widget'
+              compileSdk 35
+              defaultConfig {
+                  applicationId 'com.floripa.widget'
+                  minSdk 26
+                  targetSdk 35
+                  versionCode 1
+                  versionName '1.0'
+              }
+          }
+          EOF
+
+      - name: Install Android SDK
+        run: |
+          sdkmanager "platforms;android-35" "build-tools;35.0.0"
+          yes | sdkmanager --licenses
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: Build APK
+        run: gradle --no-daemon :app:assembleDebug
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: FLORIPA-widget-debug-apk
+          path: app/build/outputs/apk/debug/app-debug.apk
+          
